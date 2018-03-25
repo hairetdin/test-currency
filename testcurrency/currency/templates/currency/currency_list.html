@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Currency List</h1>
+
+    {% if currency_list %}
+    <ul>
+
+      {% for currency in currency_list %}
+      <li>
+        <a href="{% url 'currency-detail' currency.pk %}">{{ currency.name }}</a> ({{currency.code}})
+      </li>
+      {% endfor %}
+
+    </ul>
+    <h2>Json response</h2>
+    <p>{{json}}</p>
+
+    {% else %}
+      <p>There are no currencies.</p>
+    {% endif %}
+{% endblock %}

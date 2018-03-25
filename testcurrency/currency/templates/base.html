@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<head>
+	<title>{% block title %}Currencies{% endblock %}</title>
+
+  {% block extrastyles %}{% endblock %}
+</head>
+
+<body>
+	<div class="">
+		{% block menu %}
+			<a href="{% url 'currencies' %}">Currency list</a>
+			<a href="{% url 'ajax-example' %}">Ajax Currency Rate</a>
+			<a href="{% url 'converter' %}">Ajax Converter</a>
+		{% endblock %}
+	</div>
+	<div class="">
+		{% block content %}
+		{% endblock %}
+	</div>
+
+	{% block extrascripts %}
+	{% endblock %}
+
+</body>
+</html>

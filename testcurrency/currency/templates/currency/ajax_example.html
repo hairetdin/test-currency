@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <br>
+  <p>Get rate for</p>
+  <form id="currencyForm" class="" action="" method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" name="" value="Get rate">
+  </form>
+  <br>
+  <div id="ajax-response" class="">
+  </div>
+
+{% endblock %}
+
+
+{% block extrascripts %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script>
+
+    (function(){
+      var currencyForm = $('#currencyForm');
+
+      currencyForm.on('submit', function(){
+        console.log('submit', currencyForm.serializeArray());
+        $.ajax({
+            // type: currencyForm.attr('method'),
+            type: 'get',
+            url: '/currency/'+currencyForm.serializeArray()[1].value,
+            data: currencyForm.serialize(),
+            success: function (response_data) {
+              console.log('success ajax: ', response_data);
+              $('#ajax-response').text('1 USD = '+response_data.rate);
+            },
+            error: function(data) {
+              console.log('error ajax: ', data);
+              alert('Error post data');
+            }
+        });
+        return false;
+      });
+    })()
+
+  </script>
+{% endblock %}

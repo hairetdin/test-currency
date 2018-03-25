@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Currency: {{currency.code}}</h1>
+
+    <p>{{currency.name}}</p>
+    <p>{{currency.code}}</p>
+    {% with rate=currency.rate_set.first %}
+      {{rate.rate}}
+    {% endwith %}
+{% endblock %}

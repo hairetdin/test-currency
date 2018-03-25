@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>Converter</h1>
+  <form id="currencyForm" class="" action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" name="" value="Convert">
+  </form>
+  <br>
+  <div id="ajax-response" class="">
+  </div>
+
+{% endblock %}
+
+
+{% block extrascripts %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script>
+
+    (function(){
+      $("#id_amount_money").attr('max','999999999999');
+
+      var currencyForm = $('#currencyForm');
+
+      currencyForm.on('submit', function(){
+        console.log('submit', currencyForm.serializeArray());
+        $.ajax({
+            // type: currencyForm.attr('method'),
+            type: 'post',
+            url: '.',
+            data: currencyForm.serialize(),
+            success: function (response_data) {
+              console.log('success ajax: ', response_data);
+              $('#ajax-response').text(response_data.result);
+            },
+            error: function(data) {
+              console.log('error ajax: ', data);
+              alert('Error post data');
+            }
+        });
+        return false;
+      });
+    })()
+
+  </script>
+{% endblock %}
